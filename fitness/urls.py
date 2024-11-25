@@ -16,10 +16,9 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
-from subscriptions.views import sub_test
+from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('sub/', sub_test, name='sub'),
+    path("accounts/", include('allauth.urls'))
 ]
