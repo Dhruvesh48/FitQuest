@@ -1,0 +1,32 @@
+html {
+    height: 100%;
+}
+
+/* from Bulma */
+.icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.bg-black{
+    background: #22092C !important;
+}
+
+.text-maroon {
+    color: #872341 !important;
+}
+
+.text-green {
+    color: #008170;
+}
+
+.border-black {
+    border: 1px solid black !important;
+}
+
+.padding {
+    padding: 0 5px;
+}
