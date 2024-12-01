@@ -42,7 +42,7 @@
       <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
         <div class="container-fluid justify-content-center justify-content-md-between">
           <div class="d-flex my-2 my-sm-0">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{% url 'home' %}">
               <h2 class="text-green my-0"><strong><span class="text-maroon">Fit</span></strong>Quest</h2>
             </a>
             <!-- Search form -->
@@ -72,7 +72,7 @@
             </li>
 
             <li class="nav-item me-3 me-lg-0">
-              <a class="nav-link d-flex align-items-center" href="#">
+              <a class="nav-link d-flex align-items-center" href="{% url 'product_list' %}">
                 <span class="spacing text-green">Shop</span>
               </a>
             </li>

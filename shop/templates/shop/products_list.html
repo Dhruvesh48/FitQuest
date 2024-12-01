@@ -23,7 +23,7 @@
             <div class="card h-100 border-0 shadow-sm">
                 <!-- Product Image -->
                 {% if product.image %}
-                <a href="#">
+                <a href="{% url 'product_detail' product.id %}">
                     <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
                 </a>
                 {% else %}
@@ -34,7 +34,9 @@
 
                 <!-- Product Details -->
                 <div class="card-body">
-                    <p class="mb-0 font-weight-bold">{{ product.name }}</p>
+                    <p class="mb-0 font-weight-bold">
+                        <a href="{% url 'product_detail' product.id %}" class="text-dark">{{ product.name }}</a>
+                    </p>
                 </div>
 
                 <!-- Footer -->

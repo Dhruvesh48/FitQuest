@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="overlay"></div>
+<div class="container my-5 content-container">
+    <div class="row">
+        <!-- Product Image -->
+        <div class="col-md-6">
+            {% if product.image %}
+                <a href="{{ product.image.url }}" target="_blank">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
+                </a>
+            {% else %}
+                <img src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}" class="img-fluid">
+            {% endif %}
+        </div>
+        
+        <!-- Product Details -->
+        <div class="col-md-6">
+            <h1 class="mb-3">{{ product.name }}</h1>
+            <p class="text-muted mb-2">
+                {% if product.category %}
+                    <strong>Category:</strong> {{ product.category.friendly_name }}
+                {% endif %}
+            </p>
+            <p class="text-muted mb-4">
+                {% if product.rating %}
+                    <strong>Rating:</strong> {{ product.rating }} / 5
+                {% else %}
+                    <strong>Rating:</strong> Not Rated
+                {% endif %}
+            </p>
+            <h3 class="text-success mb-4"><strong>${{ product.price }}</strong></h3>
+            <p class="mb-4">{{ product.description }}</p>
+
+            <!-- Add to Cart Button -->
+            <form method="POST" action="#">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" name="quantity" id="quantity" value="1" min="1" max="99" class="form-control w-25">
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
