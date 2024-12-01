@@ -6,6 +6,10 @@ body, html {
     padding-top: 15px;
 }
 
+.nav-container {
+    padding-top: 50px;
+}
+
 .cover {
     background: url('/media/homepage_background.webp') no-repeat center center fixed;
     background-size: cover;
@@ -42,7 +46,6 @@ body, html {
 
 .card-img-top {
     height: 350px;
-    width: 300px;
     object-fit: cover;
     border-bottom: 1px solid #ddd;
 }

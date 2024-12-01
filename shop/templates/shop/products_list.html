@@ -2,11 +2,73 @@
 {% load static %}
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container-fluid nav-container">
+
+        <!-- Toggler for mobile view -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Centered Navbar Links -->
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <!-- Dropdown 1: Categories -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-green" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-expanded="false">
+                        All products
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                        <li><a class="dropdown-item" href="#">Price</a></li>
+                        <li><a class="dropdown-item" href="#">Rating</a></li>
+                        <li><a class="dropdown-item" href="#">Categories</a></li>
+                        <li><a a href="{% url 'product_list' %}" class="dropdown-item" href="#">All products</a></li>
+                    </ul>
+                </li>
+
+                <!-- Dropdown 2: Sort By -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-expanded="false">
+                        Men
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                        <li><a href="{% url 'product_list' %}?category=men_shirts" class="dropdown-item">T-shirts and Shirts</a></li>
+                        <li><a href="{% url 'product_list' %}?category=men_pants" class="dropdown-item">Shorts and Trousers</a></li>
+                        <li><a href="{% url 'product_list' %}?category=men_trainers" class="dropdown-item">Trainers</a></li>
+                        <li><a href="{% url 'product_list' %}?category=men_shirts,men_pants,men_trainers" class="dropdown-item">All clothing</a></li>
+                    </ul>
+                </li>
+
+                <!-- Dropdown 3: Price Range -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-expanded="false">
+                        Women
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                        <li><a href="{% url 'product_list' %}?category=women_shirts" class="dropdown-item">T-shirts and Shirts</a></li>
+                        <li><a href="{% url 'product_list' %}?category=women_pants" class="dropdown-item">Shorts and Trousers</a></li>
+                        <li><a href="{% url 'product_list' %}?category=women_trainers" class="dropdown-item">Trainers</a></li>
+                        <li><a href="{% url 'product_list' %}?category=women_shirts,women_pants,women_trainers" class="dropdown-item">All clothing</a></li>
+                    </ul>
+                </li>
+
+                <!-- Dropdown 4: Brands -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-expanded="false">
+                        Accessories
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
+                        <li><a href="{% url 'product_list' %}?category=gym_equipment" class="dropdown-item">Gym Equipment</a></li>
+                        <li><a href="{% url 'product_list' %}?category=water_bottles" class="dropdown-item">Water Bottles</a></li>
+                        <li><a href="{% url 'product_list' %}?category=backpacks" class="dropdown-item">Back Packs</a></li>
+                        <li><a href="{% url 'product_list' %}?category=gym_equipment,water_bottles,backpacks"class="dropdown-item">All accessories</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
+</nav>
+
 {% endblock %}
 
 {% block content %}
