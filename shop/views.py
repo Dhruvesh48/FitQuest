@@ -35,6 +35,14 @@ def product_list(request):
                 products = products.order_by('rating')
             elif sort_by == 'rating_desc':
                 products = products.order_by('-rating')
+            elif sort_by == 'name_asc':
+                products = products.order_by('name')
+            elif sort_by == 'name_desc':
+                products = products.order_by('-name')
+            elif sort_by == 'category_asc':
+                products = products.order_by('category__name')  
+            elif sort_by == 'category_desc':
+                products = products.order_by('-category__name')
 
     context = {
         'products': products,

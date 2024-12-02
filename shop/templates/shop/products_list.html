@@ -19,11 +19,16 @@
                         Sort By
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                        <li><a class="dropdown-item" href="?sort=price_asc">Price: Low to High</a></li>
-                        <li><a class="dropdown-item" href="?sort=price_desc">Price: High to Low</a></li>
-                        <li><a class="dropdown-item" href="?sort=rating_desc">Rating: High to Low</a></li>
-                        <li><a class="dropdown-item" href="?sort=rating_asc">Rating: Low to High</a></li>
-                        <li><a class="dropdown-item" href="{% url 'product_list' %}">All Products</a></li>
+                        <li><a href="?sort=price_asc" class="dropdown-item" >Price: Low to High</a></li>
+                        <li><a href="?sort=price_desc" class="dropdown-item" >Price: High to Low</a></li>
+                        <li><a href="?sort=rating_desc" class="dropdown-item" >Rating: High to Low</a></li>
+                        <li><a href="?sort=rating_asc" class="dropdown-item" >Rating: Low to High</a></li>
+                        <li><a href="?sort=rating_desc" class="dropdown-item" >Rating: High to Low</a></li>
+                        <li><a href="?sort=name_asc" class="dropdown-item" >Name: A to Z</a></li>
+                        <li><a href="?sort=name_desc" class="dropdown-item" >Name: Z to A</a></li>
+                        <li><a href="?sort=category_asc" class="dropdown-item" >Category: A to Z</a></li>
+                        <li><a href="?sort=category_desc" class="dropdown-item" >Category: Z to A</a></li>
+                        <li><a href="{% url 'product_list' %}" class="dropdown-item" >All Products</a></li>
                     </ul>
                 </li>
 
@@ -78,7 +83,22 @@
     <div class="row mb-4">
         <div class="col">
             <h2 class="text-center">Products</h2>
+            <div class="d-flex justify-content-center flex-wrap">
+                {% for c in current_categories %}
+                    <a class="category-badge text-decoration-none" href="{% url 'product_list' %}?category={{ c.name }}">
+                        <span class="p-2 mt-2 badge badge-white text-green rounded-0 border border-dark">{{ c.friendly_name }}</span>
+                    </a>
+                {% endfor %}
+            </div>
         </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <p class="text-muted mt-3 text-center text-md-left">
+            {% if search_term or current_categories or current_sorting != 'None_None' %}
+                <span class="small"><a href="{% url 'product_list' %}">Products Home</a> | </span>
+            {% endif %}
+            {{ products|length }} Products{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
+        </p>
     </div>
     <div class="row">
         {% for product in products %}

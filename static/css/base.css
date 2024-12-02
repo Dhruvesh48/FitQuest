@@ -79,6 +79,8 @@ body, html {
     background: #22092C !important;
 }
 
+
+
 .text-maroon {
     color: #872341 !important;
 }
@@ -104,6 +106,12 @@ body, html {
 	background: white;
 	z-index: -1;
 }
+
+a.category-badge > span.badge:hover {
+    background: #008170 !important;
+    color: #872341 !important;
+}
+
 
 
 /* Slightly larger container on xl screens */
