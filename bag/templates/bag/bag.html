@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="overlay"></div>
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="text-center">Your Bag</h2>
+        </div>
+    </div>
+    
+    {% if cart_items %}
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered text-center">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Unit Price</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>
+                            {% if item.product.image %}
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-thumbnail" style="width: 100px;">
+                            {% else %}
+                            <img src="{{ MEDIA_URL }}noimage.png" alt="No Image" class="img-thumbnail" style="width: 100px;">
+                            {% endif %}
+                        </td>
+                        <td>{{ item.product.name }}</td>
+                        <td>
+                            <form method="POST" action="{% url 'update_cart_item' item.id %}">
+                                {% csrf_token %}
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control d-inline w-50">
+                                <button type="submit" class="btn btn-success btn-sm">Update</button>
+                            </form>
+                        </td>
+                        <td>${{ item.product.price }}</td>
+                        <td>${{ item.total_price }}</td>
+                        <td>
+                            <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger btn-sm">Remove</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right">
+            <h5>Total: ${{ total_price }}</h5>
+            <a href="{% url 'checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col text-center">
+            <p>Your bag is currently empty.</p>
+            <a href="{% url 'product_list' %}" class="btn btn-outline-primary">Shop Now</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="btt-button shadow-sm rounded-0 border border-black">
+    <a class="btt-link d-flex h-100">
+        <i class="fa-solid fa-caret-up text-green mx-auto my-auto"></i>
+    </a>    
+</div>
+
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script type="text/javascript">
+    $('.btt-link').click(function(e) {
+        window.scrollTo(0, 0);
+    });
+</script>
+
+{% endblock %}
