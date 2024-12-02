@@ -7,7 +7,7 @@ body, html {
 }
 
 .nav-container {
-    padding-top: 50px;
+    padding-top: 60px;
 }
 
 .cover {
@@ -113,18 +113,33 @@ body, html {
     }
   }
   
-  /* fixed top navbar only on medium and up */
-  @media (min-width: 992px) {
-      .fixed-top-desktop-only {
-          position: fixed;
-          top: 0;
-          right: 0;
-          left: 0;
-          z-index: 1030;
-      }
-  
-      .header-container {
-          padding-top: 50px;
-      }
-  }
+/* fixed top navbar only on medium and up */
+@media (min-width: 992px) {
+    .fixed-top-desktop-only {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+    }
+
+    .header-container {
+        padding-top: 50px;
+    }
+}
+
+/* For devices with a max width of 768px (tablets and below) */
+@media screen and (max-width: 768px) {
+    .nav-container{
+        padding-top: 75px;
+    }
+}
+
+/* For devices with a max width of 320px (mobile phone) */
+@media screen and (max-width: 576px) {
+    .nav-container{
+        padding-top: 125px;
+    }
+}
+
   
