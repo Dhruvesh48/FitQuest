@@ -16,13 +16,14 @@
                 <!-- Dropdown 1: Categories -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-green" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-expanded="false">
-                        All products
+                        Sort By
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                        <li><a class="dropdown-item" href="#">Price</a></li>
-                        <li><a class="dropdown-item" href="#">Rating</a></li>
-                        <li><a href="{% url 'product_list' %}?sort=category&direction=asc" class="dropdown-item" href="#">Categories</a></li>
-                        <li><a a href="{% url 'product_list' %}" class="dropdown-item" href="#">All products</a></li>
+                        <li><a class="dropdown-item" href="?sort=price_asc">Price: Low to High</a></li>
+                        <li><a class="dropdown-item" href="?sort=price_desc">Price: High to Low</a></li>
+                        <li><a class="dropdown-item" href="?sort=rating_desc">Rating: High to Low</a></li>
+                        <li><a class="dropdown-item" href="?sort=rating_asc">Rating: Low to High</a></li>
+                        <li><a class="dropdown-item" href="{% url 'product_list' %}">All Products</a></li>
                     </ul>
                 </li>
 
