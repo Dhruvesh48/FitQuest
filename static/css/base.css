@@ -63,6 +63,18 @@ body, html {
     width: 1.5rem;
 }
 
+.btt-button {
+    height: 42px;
+    width: 42px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+.btt-link{
+    cursor: pointer;
+}
+
 .btn-black {
     background: black;
     color: white;
@@ -78,8 +90,6 @@ body, html {
 .bg-black{
     background: #22092C !important;
 }
-
-
 
 .text-maroon {
     color: #872341 !important;
