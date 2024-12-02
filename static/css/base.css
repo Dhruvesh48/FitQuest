@@ -148,6 +148,10 @@ a.category-badge > span.badge:hover {
 
 /* For devices with a max width of 768px (tablets and below) */
 @media screen and (max-width: 768px) {
+    .content-container{
+        padding-top: 50px;
+    }
+
     .nav-container{
         padding-top: 75px;
     }
@@ -155,6 +159,10 @@ a.category-badge > span.badge:hover {
 
 /* For devices with a max width of 320px (mobile phone) */
 @media screen and (max-width: 576px) {
+    .content-container{
+        padding-top: 100px;
+    }
+
     .nav-container{
         padding-top: 125px;
     }
