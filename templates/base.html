@@ -101,15 +101,13 @@
             <li class="nav-item me-3 me-lg-0">
               <a class="nav-link" href="{% url 'view_bag' %}">
                 <div class="text-center">
-                  <div><i class="fas fa-shopping-cart text-green"></i></div>
-                  <p class="my-0">
-                    {% if grand_total %}
-                        ${{ grand_total|floatformat:2 }}
-                    {% else %}
-                      <!-- <span class="badge rounded-pill badge-notification bg-danger">1</span> -->
-                    {% endif %}
-                  </p>
-                </div>
+                  <span><i class="fa-solid fa-cart-shopping text-green"></i></span>
+                  {% if total_quantity > 0 %}
+                  <span class="badge rounded-pill badge-notification bg-danger">
+                      {{ total_quantity }}
+                  </span>
+                  {% endif %}
+              </div>
               </a>
             </li>
           </ul>
