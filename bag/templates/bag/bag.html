@@ -11,86 +11,58 @@
 
 {% block content %}
 <div class="overlay"></div>
-<div class="container content-container my-5">
-    <div class="row mb-4">
-        <div class="col">
-            <h2 class="text-center">Your Bag</h2>
-        </div>
-    </div>
-    
-    {% if cart_items %}
-    <div class="row">
-        <div class="col">
-            <table class="table table-bordered text-center">
-                <thead class="thead-light">
+<div class="container my-5 content-container">
+    <h2 class="text-center mb-4">Your Shopping Bag</h2>
+
+    {% if bag_items %}
+        <table class="table table-bordered text-center">
+            <thead class="thead-light">
+                <tr>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in bag_items %}
                     <tr>
-                        <th scope="col">Image</th>
-                        <th scope="col">Product</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Unit Price</th>
-                        <th scope="col">Total Price</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in cart_items %}
-                    <tr>
+                        <!-- Product Image -->
                         <td>
                             {% if item.product.image %}
-                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-thumbnail" style="width: 100px;">
+                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-thumbnail" style="width: 100px;">
                             {% else %}
-                            <img src="{{ MEDIA_URL }}noimage.png" alt="No Image" class="img-thumbnail" style="width: 100px;">
+                                <img src="{{ MEDIA_URL }}noimage.png" alt="No Image" class="img-thumbnail" style="width: 100px;">
                             {% endif %}
                         </td>
+
+                        <!-- Product Name -->
                         <td>{{ item.product.name }}</td>
-                        <td>
-                            <form method="POST" action="{% url 'update_cart_item' item.id %}">
-                                {% csrf_token %}
-                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control d-inline w-50">
-                                <button type="submit" class="btn btn-success btn-sm">Update</button>
-                            </form>
-                        </td>
+
+                        <!-- Quantity -->
+                        <td>{{ item.quantity }}</td>
+
+                        <!-- Unit Price -->
                         <td>${{ item.product.price }}</td>
-                        <td>${{ item.total_price }}</td>
-                        <td>
-                            <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger btn-sm">Remove</a>
-                        </td>
                     </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-right">
+            <h4>Total: ${{ total|floatformat:2 }}</h4>
+            <h5>Delivery: ${{ delivery|floatformat:2 }}</h5>
+            <h3>Grand Total: ${{ grand_total|floatformat:2 }}</h3>
+            <a href="#" class="btn btn-primary btn-lg mt-3">Proceed to Checkout</a>
         </div>
-    </div>
-    <div class="row">
-        <div class="col text-right">
-            <h5>Total: ${{ total_price }}</h5>
-            <a href="{% url 'checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
-        </div>
-    </div>
     {% else %}
-    <div class="row">
-        <div class="col text-center">
+        <div class="text-center">
             <p>Your bag is currently empty.</p>
-            <a href="{% url 'product_list' %}" class="btn btn-outline-primary">Shop Now</a>
+            <a href="{% url 'product_list' %}" class="btn btn-outline-primary">Shop now</a>
         </div>
-    </div>
     {% endif %}
 </div>
 
-<div class="btt-button shadow-sm rounded-0 border border-black">
-    <a class="btt-link d-flex h-100">
-        <i class="fa-solid fa-caret-up text-green mx-auto my-auto"></i>
-    </a>    
-</div>
-
-{% endblock %}
-
-{% block postloadjs %}
-{{ block.super }}
-<script type="text/javascript">
-    $('.btt-link').click(function(e) {
-        window.scrollTo(0, 0);
-    });
-</script>
 
 {% endblock %}
