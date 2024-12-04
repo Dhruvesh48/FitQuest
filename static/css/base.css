@@ -20,6 +20,7 @@ body, html {
 }
 
 .cover::before {
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -27,7 +28,7 @@ body, html {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
     z-index: 1;
-  }
+}
 
 .cover-content {
     position: relative;
@@ -84,6 +85,16 @@ body, html {
 .btn-black:focus {
     background: #222;
     color: white;
+}
+
+.btn-green{
+    color: #008170;
+}
+
+.btn-green:active,
+.btn-green:hover,
+.btn-green:focus{
+    color: #872341;
 }
 
 .bg-black{

@@ -99,14 +99,16 @@
             {% endif %}
 
             <li class="nav-item me-3 me-lg-0">
-              <a class="nav-link" href="{% url 'view_bag' %}">
+              <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-green{% endif %} nav-link" href="{% url 'view_bag' %}">
                 <div class="text-center">
                   <span><i class="fa-solid fa-cart-shopping text-green"></i></span>
-                  {% if total_quantity > 0 %}
-                  <span class="badge rounded-pill badge-notification bg-danger">
-                      {{ total_quantity }}
+                  <span class="my-0 text-green">
+                    {% if grand_total %}
+                        ${{ grand_total|floatformat:2 }}
+                    {% else %}
+                        $0.00
+                    {% endif %}
                   </span>
-                  {% endif %}
               </div>
               </a>
             </li>

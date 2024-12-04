@@ -15,59 +15,59 @@
             <ul class="navbar-nav">
                 <!-- Dropdown 1: Categories -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-green" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-expanded="false">
-                        Sort By
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-expanded="false">
+                        <span class="text-green">Sort By</span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                        <li><a href="?sort=price_asc" class="dropdown-item" >Price: Low to High</a></li>
-                        <li><a href="?sort=price_desc" class="dropdown-item" >Price: High to Low</a></li>
-                        <li><a href="?sort=rating_desc" class="dropdown-item" >Rating: High to Low</a></li>
-                        <li><a href="?sort=rating_asc" class="dropdown-item" >Rating: Low to High</a></li>
-                        <li><a href="?sort=rating_desc" class="dropdown-item" >Rating: High to Low</a></li>
-                        <li><a href="?sort=name_asc" class="dropdown-item" >Name: A to Z</a></li>
-                        <li><a href="?sort=name_desc" class="dropdown-item" >Name: Z to A</a></li>
-                        <li><a href="?sort=category_asc" class="dropdown-item" >Category: A to Z</a></li>
-                        <li><a href="?sort=category_desc" class="dropdown-item" >Category: Z to A</a></li>
-                        <li><a href="{% url 'product_list' %}" class="dropdown-item" >All Products</a></li>
+                        <li><a href="?sort=price_asc" class="dropdown-item text-green" >Price: Low to High</a></li>
+                        <li><a href="?sort=price_desc" class="dropdown-item text-green" >Price: High to Low</a></li>
+                        <li><a href="?sort=rating_desc" class="dropdown-item text-green" >Rating: High to Low</a></li>
+                        <li><a href="?sort=rating_asc" class="dropdown-item text-green" >Rating: Low to High</a></li>
+                        <li><a href="?sort=rating_desc" class="dropdown-item text-green" >Rating: High to Low</a></li>
+                        <li><a href="?sort=name_asc" class="dropdown-item text-green" >Name: A to Z</a></li>
+                        <li><a href="?sort=name_desc" class="dropdown-item text-green" >Name: Z to A</a></li>
+                        <li><a href="?sort=category_asc" class="dropdown-item text-green" >Category: A to Z</a></li>
+                        <li><a href="?sort=category_desc" class="dropdown-item text-green" >Category: Z to A</a></li>
+                        <li><a href="{% url 'product_list' %}" class="dropdown-item text-green" >All Products</a></li>
                     </ul>
                 </li>
 
                 <!-- Dropdown 2: Sort By -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-expanded="false">
-                        Men
+                        <span class="text-green">Men</span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                        <li><a href="{% url 'product_list' %}?category=men_shirts" class="dropdown-item">T-shirts and Shirts</a></li>
-                        <li><a href="{% url 'product_list' %}?category=men_pants" class="dropdown-item">Shorts and Trousers</a></li>
-                        <li><a href="{% url 'product_list' %}?category=men_trainers" class="dropdown-item">Trainers</a></li>
-                        <li><a href="{% url 'product_list' %}?category=men_shirts,men_pants,men_trainers" class="dropdown-item">All clothing</a></li>
+                        <li><a href="{% url 'product_list' %}?category=men_shirts" class="dropdown-item text-green">T-shirts and Shirts</a></li>
+                        <li><a href="{% url 'product_list' %}?category=men_pants" class="dropdown-item text-green">Shorts and Trousers</a></li>
+                        <li><a href="{% url 'product_list' %}?category=men_trainers" class="dropdown-item text-green">Trainers</a></li>
+                        <li><a href="{% url 'product_list' %}?category=men_shirts,men_pants,men_trainers" class="dropdown-item text-green">All clothing</a></li>
                     </ul>
                 </li>
 
                 <!-- Dropdown 3: Price Range -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-expanded="false">
-                        Women
+                        <span class="text-green">Women</span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                        <li><a href="{% url 'product_list' %}?category=women_shirts" class="dropdown-item">T-shirts and Shirts</a></li>
-                        <li><a href="{% url 'product_list' %}?category=women_pants" class="dropdown-item">Shorts and Trousers</a></li>
-                        <li><a href="{% url 'product_list' %}?category=women_trainers" class="dropdown-item">Trainers</a></li>
-                        <li><a href="{% url 'product_list' %}?category=women_shirts,women_pants,women_trainers" class="dropdown-item">All clothing</a></li>
+                        <li><a href="{% url 'product_list' %}?category=women_shirts" class="dropdown-item text-green">T-shirts and Shirts</a></li>
+                        <li><a href="{% url 'product_list' %}?category=women_pants" class="dropdown-item text-green">Shorts and Trousers</a></li>
+                        <li><a href="{% url 'product_list' %}?category=women_trainers" class="dropdown-item text-green">Trainers</a></li>
+                        <li><a href="{% url 'product_list' %}?category=women_shirts,women_pants,women_trainers" class="dropdown-item text-green">All clothing</a></li>
                     </ul>
                 </li>
 
                 <!-- Dropdown 4: Brands -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-expanded="false">
-                        Accessories
+                        <span class="text-green">Accessories</span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
-                        <li><a href="{% url 'product_list' %}?category=gym_equipment" class="dropdown-item">Gym Equipment</a></li>
-                        <li><a href="{% url 'product_list' %}?category=water_bottles" class="dropdown-item">Water Bottles</a></li>
-                        <li><a href="{% url 'product_list' %}?category=backpacks" class="dropdown-item">Back Packs</a></li>
-                        <li><a href="{% url 'product_list' %}?category=gym_equipment,water_bottles,backpacks"class="dropdown-item">All accessories</a></li>
+                        <li><a href="{% url 'product_list' %}?category=gym_equipment" class="dropdown-item text-green">Gym Equipment</a></li>
+                        <li><a href="{% url 'product_list' %}?category=water_bottles" class="dropdown-item text-green">Water Bottles</a></li>
+                        <li><a href="{% url 'product_list' %}?category=backpacks" class="dropdown-item text-green">Back Packs</a></li>
+                        <li><a href="{% url 'product_list' %}?category=gym_equipment,water_bottles,backpacks"class="dropdown-item text-green">All accessories</a></li>
                     </ul>
                 </li>
             </ul>
