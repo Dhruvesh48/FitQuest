@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load bag_tools %}
 
 {% block page_header %}
     <div class="container header-container">
@@ -29,27 +30,89 @@
                 <tbody>
                     {% for item in bag_items %}
                         <tr>
-                            <td>
+                            <!-- Product Image -->
+                            <td class="py-3">
                                 {% if item.product.image %}
                                     <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-thumbnail" style="width: 80px;">
                                 {% else %}
                                     <img src="{{ MEDIA_URL }}noimage.png" alt="No Image" class="img-thumbnail" style="width: 80px;">
                                 {% endif %}
                             </td>
-                            <td>
+
+                            <!-- Product Details -->
+                            <td class="py-3">
                                 <p class="my-0"><strong>{{ item.product.name }}</strong></p>
-                                <p class="my-0"><strong>Size: </strong>{% if item.product.has_sizes %}{{ item.size|upper }}{% else %}N/A{% endif %}</p>  
+                                <p class="my-0"><strong>Size:</strong> {% if item.product.has_sizes %}{{ item.size|upper }}{% else %}N/A{% endif %}</p>
                                 <p class="my-0 small text-muted">SKU: {{ item.product.sku|upper }}</p>
                             </td>
-                            <td>{{ item.quantity }}</td>
-                            <td>${{ item.product.price }}</td>
 
+                            <!-- Quantity Update Form -->
+                            <td class="py-3 w-25">
+                                <div class="d-flex justify-content-between">
+                                    <form class="form update-form" method="POST" action="{% url 'update_bag_item' item.item_id %}">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="input-group mb-2">
+                                                <!-- Decrement Button -->
+                                                <div class="input-group-prepend">
+                                                    <button class="decrement-qty btn btn-sm btn-black rounded-0" 
+                                                        type="button" 
+                                                        data-item_id="{{ item.item_id }}" 
+                                                        id="decrement-qty_{{ item.item_id }}">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                
+                                                <!-- Quantity Input -->
+                                                <input class="form-control form-control-sm qty_input" 
+                                                    type="number" 
+                                                    name="quantity" 
+                                                    value="{{ item.quantity }}" 
+                                                    min="1" 
+                                                    max="99"
+                                                    data-item_id="{{ item.item_id }}" 
+                                                    id="id_qty_{{ item.item_id }}">
+                                
+                                                <!-- Increment Button -->
+                                                <div class="input-group-append">
+                                                    <button class="increment-qty btn btn-sm btn-black rounded-0"
+                                                        type="button" 
+                                                        data-item_id="{{ item.item_id }}" 
+                                                        id="increment-qty_{{ item.item_id }}">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            {% if item.product.has_sizes %}
+                                                <input type="hidden" name="product_size" value="{{ item.size }}">
+                                            {% endif %}
+                                        </div>  
+                                            <button type="submit" class="btn btn-info btn-sm me-2">Update</button>  
+                                    </form>
+                                
+                                    <!-- Remove Form -->
+                                    <form method="POST" action="{% url 'remove_from_bag' item.item_id %}">
+                                        {% csrf_token %}
+                                        {% if item.product.has_sizes %}
+                                            <input type="hidden" name="product_size" value="{{ item.size }}">
+                                        {% endif %}
+                                        <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                    </form>
+                                </div>
+                                                                
+   
+                            </td>
+
+                            <!-- Unit Price -->
+                            <td class="py-3">${{ item.product.price }}</td>
+                            <td class="py-3"><p class="my-0">${{ item.product.price | calc_subtotal:item.quantity }}</p></td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
 
+        <!-- Bag Totals -->
         <div class="row mt-4">
             <div class="col-12 col-md-6 offset-md-6">
                 <div class="bg-light p-3 border rounded">
@@ -80,6 +143,9 @@
     {% endif %}
 </div>
 
+{% endblock %}
 
-
+{% block postloadjs %}
+{{ block.super }}
+{% include 'shop/includes/quantity_input_script.html' %}
 {% endblock %}
