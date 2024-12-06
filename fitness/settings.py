@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'home',
     'shop',
     'bag',
+    'fitquest',
 ]
 
 MIDDLEWARE = [
