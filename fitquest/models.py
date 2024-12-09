@@ -3,31 +3,73 @@ from django.db import models
 
 # Create your models here.
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(blank=True, null=True)
-    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
-
-    def __str__(self):
-        return self.user.username
-    
-class Plan(models.Model):
-    CATEGORY_CHOICES = [
-        ('fitness', 'Fitness'),
-        ('nutrition', 'Nutrition'),
-        ('work', 'Work'),
-        ('personal', 'Personal Development'),
+    BODY_TYPE_CHOICES = [
+        ('weight_loss', 'Weight Loss'),
+        ('muscle_gain', 'Muscle Gain'),
+        ('toned', 'Toned and Lean'),
+        ('general_fitness', 'General Fitness'),
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='plans')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    bio = models.TextField(blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    body_type = models.CharField(
+        max_length=50,
+        choices=BODY_TYPE_CHOICES,
+        blank=True,
+        null=True,
+    )
+
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
+    
+class Plan(models.Model):
+    BODY_TYPE_CHOICES = [
+        ('weight_loss', 'Weight Loss'),
+        ('muscle_gain', 'Muscle Gain'),
+        ('toned', 'Toned and Lean'),
+        ('general_fitness', 'General Fitness'),
+    ]
+
     title = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
-    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
-    start_date = models.DateField()
-    end_date = models.DateField()
+    description = models.TextField()
+    training_plan = models.TextField(default='Training plan')
+    body_type = models.CharField(
+        max_length=50,
+        choices=BODY_TYPE_CHOICES,
+        blank=True,
+        null=True
+    )
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
     is_completed = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
+
+    def duration(self):
+        """Calculate the duration of the plan in days."""
+        return (self.end_date - self.start_date).days
+    
+class NutritionalPlan(models.Model):
+    BODY_TYPE_CHOICES = [
+        ('weight_loss', 'Weight Loss'),
+        ('muscle_gain', 'Muscle Gain'),
+        ('toned', 'Toned and Lean'),
+        ('general_fitness', 'General Fitness'),
+    ]
+
+    body_type = models.CharField(max_length=50, choices=BODY_TYPE_CHOICES)
+    plan = models.ForeignKey(Plan, on_delete=models.CASCADE, related_name='nutritional_plans')
+    meal_name = models.CharField(max_length=255)
+    description = models.TextField()
+    calories = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.body_type.title()} - {self.meal_name}"
     
 class Task(models.Model):
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE, related_name='tasks')

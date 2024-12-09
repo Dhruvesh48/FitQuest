@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<h2 class="content-container">Plans</h2>
+
+<div class="row content-container">
+    {% for plan in plans %}
+        <div class="col-md-4 col-sm-6 col-xs-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ plan.title }}</h5>
+                    <p class="card-text" id="description{{ plan.id }}">
+                        <!-- Display a truncated version of the description -->
+                        <span class="short-description">
+                            {{ plan.description|truncatewords:30 }}...
+                        </span>
+                        
+                        <!-- Full description that is hidden initially -->
+                        <span class="full-description d-none">
+                            {{ plan.description }}
+                        </span>
+                    </p>
+
+                    <!-- Learn More / Learn Less Button -->
+                    <button class="btn btn-link toggle-description" data-plan-id="{{ plan.id }}">
+                        Learn More
+                    </button>
+
+                    <!-- Link to View Full Plan -->
+                    <a href="" class="btn btn-primary mt-2">View Plan</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>No active plans available.</p>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // jQuery to toggle description visibility and button text
+    $(document).ready(function() {
+        $('.toggle-description').click(function() {
+            var planId = $(this).data('plan-id');
+            
+            var shortDescription = $('#description' + planId + ' .short-description');
+            var fullDescription = $('#description' + planId + ' .full-description');
+            
+            // Toggle the visibility of the descriptions
+            shortDescription.toggleClass('d-none');
+            fullDescription.toggleClass('d-none');
+
+            // Change button text between Learn More / Learn Less
+            var button = $(this);
+            if (fullDescription.hasClass('d-none')) {
+                button.text('Learn More');
+            } else {
+                button.text('Learn Less');
+            }
+        });
+    });
+</script>
+{% endblock %}
