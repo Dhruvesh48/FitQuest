@@ -21,7 +21,7 @@
                         Category: {{ plan.get_body_type_display }}
                     </p>
                     <p class="card-text mt-3">
-                        {{ plan.description }}
+                        {{ plan.training_plan | safe }}
                     </p>
                     <p>
                         <strong>Start Date:</strong> {{ plan.start_date|date:"M d, Y" }}<br>
@@ -49,7 +49,7 @@
                     {% for meal in plan.nutritional_plans.all %}
                         <li class="list-group-item">
                             <h6>{{ meal.meal_name }}</h6>
-                            <p class="mb-1">{{ meal.description }}</p>
+                            <p class="mb-1">{{ meal.description | safe }}</p>
                             <small><strong>Calories:</strong> {{ meal.calories }} kcal</small>
                         </li>
                     {% empty %}

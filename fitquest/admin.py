@@ -1,17 +1,20 @@
 from django.contrib import admin
 from .models import Profile, Plan, NutritionalPlan, Task, Progress, Friend, Activity
+from django_summernote.admin import SummernoteModelAdmin
 
 # Register your models here.
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user',)
 
-class PlanAdmin(admin.ModelAdmin):
+class PlanAdmin(SummernoteModelAdmin):
     list_display = ('title', 'body_type', 'is_completed')
     list_filter = ('body_type', 'is_completed')
+    summernote_field = ('training_plan',)
 
-class NutritionalPlanAdmin(admin.ModelAdmin):
+class NutritionalPlanAdmin(SummernoteModelAdmin):
     list_display = ('body_type', 'meal_name', 'plan', 'calories', 'created_at', 'updated_at')
     list_filter = ('body_type', 'plan')
+    summernote_field = ('description',)
 
 class TaskAdmin(admin.ModelAdmin):
     list_display = ('title', 'plan', 'due_date', 'is_completed')
