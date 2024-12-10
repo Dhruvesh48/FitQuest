@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4 content-container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <!-- Plan Details -->
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">{{ plan.title }}</h2>
+                    <p class="card-subtitle text-muted mb-2">
+                        Category: {{ plan.get_body_type_display }}
+                    </p>
+                    <p class="card-text mt-3">
+                        {{ plan.description }}
+                    </p>
+                    <p>
+                        <strong>Start Date:</strong> {{ plan.start_date|date:"M d, Y" }}<br>
+                        <strong>End Date:</strong> {{ plan.end_date|date:"M d, Y" }}
+                    </p>
+                    <p>
+                        <strong>Status:</strong> 
+                        {% if plan.is_completed %}
+                            <span class="text-success">Completed</span>
+                        {% elif plan.is_active %}
+                            <span class="text-info">In Progress</span>
+                        {% else %}
+                            <span class="text-secondary">Not Started</span>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Nutritional Plans Section -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5>Nutritional Plans</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for meal in plan.nutritional_plans.all %}
+                        <li class="list-group-item">
+                            <h6>{{ meal.meal_name }}</h6>
+                            <p class="mb-1">{{ meal.description }}</p>
+                            <small><strong>Calories:</strong> {{ meal.calories }} kcal</small>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">No nutritional plans associated with this plan.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Back Button -->
+            <div class="mt-4 text-center">
+                <a href="{% url 'plan_list' %}" class="btn btn-secondary">Back to Plans</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
