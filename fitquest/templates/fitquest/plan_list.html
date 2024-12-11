@@ -47,8 +47,8 @@
 {% endblock %}
 
 {% block extra_js %}
+{{ block.super }}
 <script>
-    // jQuery to toggle description visibility and button text
     $(document).ready(function() {
         $('.toggle-description').click(function() {
             var planId = $(this).data('plan-id');
@@ -56,11 +56,9 @@
             var shortDescription = $('#description' + planId + ' .short-description');
             var fullDescription = $('#description' + planId + ' .full-description');
             
-            // Toggle the visibility of the descriptions
             shortDescription.toggleClass('d-none');
             fullDescription.toggleClass('d-none');
 
-            // Change button text between Learn More / Learn Less
             var button = $(this);
             if (fullDescription.hasClass('d-none')) {
                 button.text('Learn More');

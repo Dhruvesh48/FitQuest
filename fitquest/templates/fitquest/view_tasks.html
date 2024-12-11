@@ -12,28 +12,74 @@
 {% block content %}
 <div class="container content-container">
     <h2>Tasks for Plan: {{ plan.title }}</h2>
-    <p><strong>Progress:</strong> {{ progress.calculate_completion_rate }}%</p>
+    <p><strong>Progress:</strong> {{ progress.calculate_completion_rate|floatformat:2 }}%</p>
     <div class="progress mb-4">
-        <div class="progress-bar" role="progressbar" aria-valuenow="{{ progress.calculate_completion_rate }}" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar dynamic-progress-bar" 
+             data-progress="{{ progress.calculate_completion_rate|floatformat:2 }}" 
+             aria-valuenow="{{ progress.calculate_completion_rate }}" 
+             aria-valuemin="0" 
+             aria-valuemax="100">
+            {{ progress.tasks_completed }} / {{ progress.total_tasks }}
+        </div>
     </div>
+
     <ul class="list-group">
         {% for task in tasks %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{ task.title }}
-                <span>
-                    {% if task.is_completed %}
-                        <span class="badge badge-success">Completed</span>
-                    {% else %}
-                        <span class="badge badge-warning">Pending</span>
-                    {% endif %}
-                    <a href="{% url 'update_task_status' task.id %}" class="btn btn-sm btn-primary ml-2">
-                        {% if task.is_completed %} Incomplete {% else %} Complete {% endif %}
-                    </a>
-                </span>
+            <li class="list-group-item">
+                <!-- Main Task Title and Status -->
+                <div class="d-flex justify-content-between align-items-center">
+                    <span>
+                        <strong data-toggle="collapse" data-target="#task{{ task.id }}" aria-expanded="false" aria-controls="task{{ task.id }}" class="btt-link">
+                            {{ task.title }}
+                        </strong>
+                        {% if task.due_date %}
+                            <small class="text-muted">(Due: {{ task.due_date|date:"M d, Y" }})</small>
+                        {% endif %}
+                    </span>
+                    <span>
+                        {% if task.is_completed %}
+                            <span class="badge badge-success">Completed</span>
+                        {% else %}
+                            <span class="badge badge-warning">Pending</span>
+                        {% endif %}
+                        <a href="{% url 'update_task_status' task.id %}" class="btn btn-sm btn-primary ml-2">
+                            {% if task.is_completed %} Incomplete {% else %} Complete {% endif %}
+                        </a>
+                    </span>
+                </div>
+
+                <!-- Collapsible Description (toggle by clicking title) -->
+                <div class="task-item">
+                    <div class="card">
+                        <div id="task{{ task.id }}" class="collapse">
+                            <div class="card-body">
+                                <ul>
+                                    {{ task.description|default:"No description available."|safe }}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </li>
         {% empty %}
             <p>No tasks available for this plan.</p>
         {% endfor %}
     </ul>
 </div>
+
+{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const progressBars = document.querySelectorAll('.dynamic-progress-bar');
+        progressBars.forEach(bar => {
+            const progress = bar.getAttribute('data-progress');
+            if (progress) {
+                bar.style.width = `${progress}%`;
+            }
+        });
+    });
+</script>
 {% endblock %}
