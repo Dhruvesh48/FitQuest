@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 class Profile(models.Model):
@@ -77,13 +78,18 @@ class Task(models.Model):
     description = models.TextField(blank=True, null=True)
     due_date = models.DateField(blank=True, null=True)
     is_completed = models.BooleanField(default=False)
+    order_number = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f"{self.title} ({'Completed' if self.is_completed else 'Pending'})"
     
+    class Meta:
+        ordering = ['due_date', 'order_number']
+    
 class Progress(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE, related_name='progress')
+    start_date = models.DateField(default=timezone.now)
     date = models.DateField(auto_now_add=True)
     tasks_completed = models.IntegerField(default=0)
     total_tasks = models.IntegerField(default=0)

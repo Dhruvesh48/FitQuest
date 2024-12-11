@@ -29,7 +29,12 @@
                 <!-- Main Task Title and Status -->
                 <div class="d-flex justify-content-between align-items-center">
                     <span>
-                        <strong data-toggle="collapse" data-target="#task{{ task.id }}" aria-expanded="false" aria-controls="task{{ task.id }}" class="btt-link">
+                        <!-- Task Title with Collapse Trigger -->
+                        <strong data-toggle="collapse" 
+                                data-target="#task{{ task.id }}" 
+                                aria-expanded="false" 
+                                aria-controls="task{{ task.id }}" 
+                                class="btt-link">
                             {{ task.title }}
                         </strong>
                         {% if task.due_date %}
@@ -49,15 +54,11 @@
                 </div>
 
                 <!-- Collapsible Description (toggle by clicking title) -->
-                <div class="task-item">
-                    <div class="card">
-                        <div id="task{{ task.id }}" class="collapse">
-                            <div class="card-body">
-                                <ul>
-                                    {{ task.description|default:"No description available."|safe }}
-                                </ul>
-                            </div>
-                        </div>
+                <div id="task{{ task.id }}" class="collapse mt-2">
+                    <div class="card-body">
+                        <ul>
+                            {{ task.description|default:"No description available."|safe }}
+                        </ul>
                     </div>
                 </div>
             </li>
@@ -66,6 +67,7 @@
         {% endfor %}
     </ul>
 </div>
+
 
 {% endblock %}
 
