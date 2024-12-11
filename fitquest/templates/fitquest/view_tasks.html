@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="container content-container">
+    <h2>Tasks for Plan: {{ plan.title }}</h2>
+    <p><strong>Progress:</strong> {{ progress.calculate_completion_rate }}%</p>
+    <div class="progress mb-4">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{{ progress.calculate_completion_rate }}" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    <ul class="list-group">
+        {% for task in tasks %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ task.title }}
+                <span>
+                    {% if task.is_completed %}
+                        <span class="badge badge-success">Completed</span>
+                    {% else %}
+                        <span class="badge badge-warning">Pending</span>
+                    {% endif %}
+                    <a href="{% url 'update_task_status' task.id %}" class="btn btn-sm btn-primary ml-2">
+                        {% if task.is_completed %} Incomplete {% else %} Complete {% endif %}
+                    </a>
+                </span>
+            </li>
+        {% empty %}
+            <p>No tasks available for this plan.</p>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

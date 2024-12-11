@@ -16,9 +16,10 @@ class NutritionalPlanAdmin(SummernoteModelAdmin):
     list_filter = ('body_type', 'plan')
     summernote_field = ('description',)
 
-class TaskAdmin(admin.ModelAdmin):
+class TaskAdmin(SummernoteModelAdmin):
     list_display = ('title', 'plan', 'due_date', 'is_completed')
     list_filter = ('is_completed',)
+    summernote_field = ('description',)
 
 class ProgressAdmin(admin.ModelAdmin):
     list_display = ('plan', 'date', 'tasks_completed', 'total_tasks')

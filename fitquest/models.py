@@ -75,13 +75,14 @@ class Task(models.Model):
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE, related_name='tasks')
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
-    due_date = models.DateField()
+    due_date = models.DateField(blank=True, null=True)
     is_completed = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.title} ({'Completed' if self.is_completed else 'Pending'})"
     
 class Progress(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE, related_name='progress')
     date = models.DateField(auto_now_add=True)
     tasks_completed = models.IntegerField(default=0)
